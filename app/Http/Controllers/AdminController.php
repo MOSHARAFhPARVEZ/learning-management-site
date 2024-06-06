@@ -85,15 +85,7 @@ class AdminController extends Controller
     } //end method
 
 
-    public function Error()
-    {
-        $id = Auth::user()->id;
-        $instuctorId = User::find($id);
-        $status = $instuctorId->status;
-    if ($status === '0') {
-        return view('instuctor.error.errornotactive');
-    }
-    } //end method
+
 
 
 
