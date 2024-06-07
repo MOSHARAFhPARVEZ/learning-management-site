@@ -31,14 +31,21 @@ $status = $instuctorId->status;
         @if ($status === '1')
 
 
-        <li class="menu-label">UI Elements</li>
+        <li class="menu-label">Course Management</li>
         <li>
-            <a href="widgets.html">
-                <div class="parent-icon"><i class='bx bx-cookie'></i>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-cart'></i>
                 </div>
-                <div class="menu-title">Widgets</div>
+                <div class="menu-title">Course</div>
             </a>
+            <ul>
+                <li> <a href="{{ route('course.index') }}"><i class='bx bx-radio-circle'></i>ALL Course</a>
+                </li>
+                <li> <a href="{{ route('course.create') }}"><i class='bx bx-radio-circle'></i>Create Course</a>
+                </li>
+            </ul>
         </li>
+        <li class="menu-label">UI Elements</li>
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class='bx bx-cart'></i>

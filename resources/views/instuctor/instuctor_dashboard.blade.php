@@ -21,6 +21,9 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 	<link href="{{ asset('backend') }}/assets/css/app.css" rel="stylesheet">
 	<link href="{{ asset('backend') }}/assets/css/icons.css" rel="stylesheet">
+    {{-- datatable --}}
+    <link href="{{ asset('backend') }}/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    {{-- end datatable --}}
 	<!-- Theme Style CSS -->
 	<link rel="stylesheet" href="{{ asset('backend') }}/assets/css/dark-theme.css"/>
 	<link rel="stylesheet" href="{{ asset('backend') }}/assets/css/semi-dark.css"/>
@@ -68,6 +71,28 @@
 	<script>
 		new PerfectScrollbar(".app-container")
 	</script>
+    {{-- datatable --}}
+    <script src="{{ asset('backend') }}/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="{{ asset('backend') }}/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{ asset('backend') }}/assets/plugins/datatable/js/validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="{{ asset('backend') }}/assets/js/code.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#example').DataTable();
+		  } );
+	</script>
+    {{-- end datatable --}}
+    {{-- tiny editor part start  --}}
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
+    plugins: 'code table lists',
+    toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
+  });
+</script>
+    {{-- tiny editor part end  --}}
 </body>
 
 </html>
