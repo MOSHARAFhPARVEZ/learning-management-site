@@ -100,6 +100,12 @@ Route::post('/instuctor/password/update', [InstuctorController::class, 'Instucto
 Route::controller(CourseController::class)->group(function(){
     Route::get('/course/index','CourseIndex')->name('course.index');
     Route::get('/course/create','CourseCreate')->name('course.create');
+    Route::post('/course/store','CourseStore')->name('course.store');
+    Route::get('/course/details/{id}','CourseDetails')->name('course.details');
+    Route::get('/course/edit/{id}','CourseEdit')->name('course.edit');
+    Route::post('/course/update/{id}','CourseUpdate')->name('course.update');
+    Route::post('/course/update/image/{id}','CourseUpdateImage')->name('course.update.image');
+    Route::post('/course/update/video/{id}','CourseUpdateVideo')->name('course.update.video');
     // Route::get('/destroy/category/{id}','DestroyCategory')->name('destroy.category');
 });
 

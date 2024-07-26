@@ -34,9 +34,9 @@
                             <th>Course Image</th>
                             <th>Course Name</th>
                             <th>Category Name</th>
-                            <th>Sub Category Name</th>
                             <th>Selling Price</th>
                             <th>Discount Price</th>
+                            <th>Details</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -44,15 +44,17 @@
                         @foreach ($courses as $course)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td><img src="{{ asset('uploads/courses_img') }}/{{  $course->course_image }}" alt=""
+                            <td><img src="{{ asset('uploads/course/course_image') }}/{{  $course->course_image }}" alt=""
                                     style="width: 40px; height:40px"></td>
                             <td>{{ $course->course_name }}</td>
-                            <td>{{ $course->category_id }}</td>
-                            <td>{{ $course->subcategory_id }}</td>
+                            <td>{{ $course->category->category_name }}</td>
                             <td>{{ $course->selling_price }}</td>
                             <td>{{ $course->discount_price }}</td>
+                            <td><a href="{{ route('course.details',$course->id) }}" class="btn btn-info">
+                                    Details
+                                </a></td>
                             <td>
-                                <a href="{{ route('edit.category',$course->id) }}" class="btn btn-warning">
+                                <a href="{{ route('course.edit',$course->id) }}" class="btn btn-warning">
                                     Edit
                                 </a>
                                 <a href="{{ route('destroy.category',$course->id) }}" class="btn btn-danger"
@@ -66,9 +68,11 @@
                     <tfoot>
                         <tr>
                             <th>Sl</th>
-                            <th>Category Image</th>
-                            <th>Category Name</th>
-                            <th>Category Slug</th>
+                            <th>Course Image</th>
+                            <th>Course Name</th>
+                            <th>Selling Price</th>
+                            <th>Discount Price</th>
+                            <th>Details</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
