@@ -51,15 +51,18 @@
                             <td>{{ $course->selling_price }}</td>
                             <td>{{ $course->discount_price }}</td>
                             <td><a href="{{ route('course.details',$course->id) }}" class="btn btn-info">
-                                    Details
+                                    <i class="lni lni-list"></i>
                                 </a></td>
                             <td>
-                                <a href="{{ route('course.edit',$course->id) }}" class="btn btn-warning">
-                                    Edit
+                                <a href="{{ route('course.edit',$course->id) }}" class="btn btn-warning" title="Edit" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit text-primary"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                 </a>
-                                <a href="{{ route('destroy.category',$course->id) }}" class="btn btn-danger"
+                                <a href="{{ route('course.destroy',$course->id) }}" class="btn btn-danger" title="Delete"
                                     id="delete">
-                                    Delete
+                                    <i class="lni lni-trash"></i>
+                                </a>
+                                <a href="{{ route('course.lecture.create',$course->id) }}" class="btn btn-secondary" title="Lecture">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder-plus text-primary"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
                                 </a>
                             </td>
                         </tr>

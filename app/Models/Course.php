@@ -15,4 +15,8 @@ class Course extends Model
     public function subcategory(){
         return $this->belongsTo(SubCategory::class,'subcategory_id','id');
     }
+
+    public function instuctor(){
+        return $this->belongsTo(User::class,'instactor_id','id');
+    }
 }

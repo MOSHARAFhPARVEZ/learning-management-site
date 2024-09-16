@@ -62,6 +62,13 @@
                                 </div>
                             </div><!-- end input-box -->
                             <div class="input-box col-lg-6">
+                                <label class="label-text">Description</label>
+                                <div class="form-group">
+                                    <textarea class="form-control form--control"  name="description" value=>{{ $profiledata->description }}</textarea>
+                                    <span class="la la-phone input-icon"></span>
+                                </div>
+                            </div><!-- end input-box -->
+                            <div class="input-box col-lg-6">
                                 <label class="label-text">Address</label>
                                 <div class="form-group">
                                     <input class="form-control form--control" type="text" name="address" value="{{ $profiledata->address }}" >

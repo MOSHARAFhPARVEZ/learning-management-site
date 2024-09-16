@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\InstuctorController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TeacherApplyController;
@@ -32,6 +33,10 @@ Route::middleware('auth')->group(function () {
 // New Teacher apply part
 Route::get('/teacher/apply', [TeacherApplyController::class, 'TeacherApply'])->name('teacher.apply');
 Route::post('/teacher/apply/store', [TeacherApplyController::class, 'TeacherApplyStore'])->name('teacher.apply.store');
+
+// Category part start
+Route::post('/teacher/apply/store', [TeacherApplyController::class, 'TeacherApplyStore'])->name('teacher.apply.store');
+// Category part end
 
 // frontend part
 
@@ -96,7 +101,7 @@ Route::get('/instuctor/change/password', [InstuctorController::class, 'Instuctor
 
 Route::post('/instuctor/password/update', [InstuctorController::class, 'InstuctorPasswordUpdate'])->name('instuctor.password.update');
 
-// instuctor part
+// Course part
 Route::controller(CourseController::class)->group(function(){
     Route::get('/course/index','CourseIndex')->name('course.index');
     Route::get('/course/create','CourseCreate')->name('course.create');
@@ -106,10 +111,37 @@ Route::controller(CourseController::class)->group(function(){
     Route::post('/course/update/{id}','CourseUpdate')->name('course.update');
     Route::post('/course/update/image/{id}','CourseUpdateImage')->name('course.update.image');
     Route::post('/course/update/video/{id}','CourseUpdateVideo')->name('course.update.video');
-    // Route::get('/destroy/category/{id}','DestroyCategory')->name('destroy.category');
+    Route::post('/course/update/goals/{id}','CourseUpdateGoals')->name('course.update.goals');
+    Route::get('/course/destroy/{id}','CourseDestroy')->name('course.destroy');
 });
 
+// Course Section and Lecture part
+Route::controller(CourseController::class)->group(function(){
+    Route::get('/course/lecture/create/{id}','CourseLectureCreate')->name('course.lecture.create');
+    // Route::get('/course/index','CourseIndex')->name('course.index');
+    ////======== Section Part =======//////
+    Route::post('/course/section/create/{id}','CourseSectionCreate')->name('course.section.create');
+    Route::get('/course/section/edit/{id}','CourseSectionEdit')->name('course.section.edit');
+    Route::post('/course/section/update/{id}','CourseSectionUpdate')->name('course.section.update');
+    Route::get('/course/section/destroy/{id}','CourseSectionDestroy')->name('course.section.destroy');
+    Route::get('/course/section/addlecture/{id}','CourseSectionAddlecture')->name('course.section.addlecture');
+    Route::post('/addlecture/store/{id}','AddlectureStore')->name('addlecture.store');
+    Route::get('/course/lecture/edit/{id}','CourseLectureEdit')->name('course.lecture.edit');
+    Route::post('/course/lecture/update/{id}','CourseLectureUpdate')->name('course.lecture.update');
+    Route::get('/course/lecture/destroy/{id}','CourseLectureDestroy')->name('course.lecture.destroy');
+});
+
+
 });// end instuctor middleware part
+////////////////////////////////////////////////////////////////////////
+// ////////Frontend Part start / / /  / / / / / / / / / / / / /
+////////////////////////////////////////////////////////////////////////
+// ////////Course Details Part start / / /  / / / / / / / / / / / / /
+Route::get('/course/details/{id}/{slug}',[CourseController::class, 'CourseDetailsPage']);
+///   /////// Course Details Part end/ / / / / / / / / / / / / / / /
+///   /////// Categories wise coure/ / / / / / / / / / / / / / / /
+Route::get('/category/{id}/{slug}',[FrontendController::class, 'CategorywiseCourse']);
+Route::get('/subcategory/{id}/{slug}',[FrontendController::class, 'SubcategorywiseCourse']);
 
 
 

@@ -26,6 +26,10 @@
                         <span class="profile-name">Address:</span>
                         <span class="profile-desc">{{ $profiledata->address }}</span>
                     </li>
+                    <li>
+                        <span class="profile-name">Description:</span>
+                        <span class="profile-desc">{{ $profiledata->description }}</span>
+                    </li>
                 </ul>
                 <a href="{{ route('user.profile.change') }}" type="submit" class="btn theme-btn mt-5">Edit Profile</a>
             </div>

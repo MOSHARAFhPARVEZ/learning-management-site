@@ -212,8 +212,7 @@
                     <div class="form-group col-md-6" style="padding-top: 30px;">
                         <a class="btn btn-success addeventmore"><i class="fa fa-plus-circle"></i> Add More..</a>
                     </div>
-                </div>
-                <!---end row-->
+                </div> <!---end row-->
                 <!--   //////////// End Goal Option /////////////// -->
 
 

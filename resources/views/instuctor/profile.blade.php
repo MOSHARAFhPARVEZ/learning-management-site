@@ -111,6 +111,23 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3">
+                        <h6 class="mb-0">Description</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <textarea class="form-control"  name="description" >{{ $profiledata->description }}</textarea>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Long Description</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <textarea class="form-control"  name="long_description" >{{ $profiledata->long_description }}</textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-sm-3">
                         <h6 class="mb-0">Profile Photo</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">

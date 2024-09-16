@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,9 +12,12 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
+    // index page part start
     public function Index(){
-        return view('frontend.index');
+        $categories = Category::latest()->limit(6)->get();
+        return view('frontend.index',compact('categories'));
     } //end method
+    // index page part end
 
 
     public function UserProfile(){

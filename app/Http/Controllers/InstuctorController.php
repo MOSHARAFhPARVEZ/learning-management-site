@@ -27,6 +27,8 @@ class InstuctorController extends Controller
         $data->email = $request->email;
         $data->address = $request->address;
         $data->phone = $request->phone;
+        $data->description = $request->description;
+        $data->long_description = $request->long_description;
 
         if ($request->file('photo')) {
             $file = $request->file('photo');
