@@ -15,6 +15,9 @@
     <!-- Favicon -->
     <link rel="icon" sizes="16x16" href="{{ asset('frontend') }}/images/favicon.png">
 
+    {{-- csrf token  --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}" >
+
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('frontend') }}/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('frontend') }}/css/line-awesome.css">
@@ -25,6 +28,7 @@
     <link rel="stylesheet" href="{{ asset('frontend') }}/css/tooltipster.bundle.css">
     <link rel="stylesheet" href="{{ asset('frontend') }}/css/style.css">
     <link rel="stylesheet" href="{{ asset('frontend') }}/css/plyr.css">
+     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
     <!-- end inject -->
 </head>
 <body>
@@ -77,11 +81,41 @@
 <script src="{{ asset('frontend') }}/js/datedropper.min.js"></script>
 <script src="{{ asset('frontend') }}/js/emojionearea.min.js"></script>
 <script src="{{ asset('frontend') }}/js/tooltipster.bundle.min.js"></script>
+<script src="{{ asset('frontend') }}/js/animated-skills.js"></script>
 <script src="{{ asset('frontend') }}/js/jquery.lazy.min.js"></script>
 <script src="{{ asset('frontend') }}/js/main.js"></script>
 <script src="{{ asset('frontend') }}/js/plyr.js"></script>
 <script>
     var player = new Plyr('#player');
 </script>
+@include('frontend\body\script')
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+
+ if(Session::has('message')){
+    var type = "{{ Session::get('alert-type','info') }}"
+    switch(type){
+        case 'info':
+        toastr.info(" {{ Session::get('message') }} ");
+        break;
+
+        case 'success':
+        toastr.success(" {{ Session::get('message') }} ");
+        break;
+
+        case 'warning':
+        toastr.warning(" {{ Session::get('message') }} ");
+        break;
+
+        case 'error':
+        toastr.error(" {{ Session::get('message') }} ");
+        break;
+    }
+}
+
+
+</script>
+
 </body>
 </html>

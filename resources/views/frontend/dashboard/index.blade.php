@@ -15,7 +15,7 @@
                 alt="Student thumbnail image">
         </div>
         <div class="media-body">
-            <h2 class="section__title fs-30">Howdy, {{ $profiledata->name }}</h2>
+            <h2 class="section__title fs-30">{{ $profiledata->name }}</h2>
             <div class="rating-wrap d-flex align-items-center pt-2">
                 <div class="review-stars">
                     <span class="rating-number">4.4</span>

@@ -21,8 +21,8 @@
             <div class="breadcrumb-content">
                 <ul class="generic-list-item generic-list-item-arrow d-flex flex-wrap align-items-center">
                     <li><a href="{{ route('index') }}">Home</a></li>
-                    <li><a href="#">{{ $course->category->category_name }}</a></li>
-                    <li><a href="#">{{ $course->subcategory->subcategory_name }}</a></li>
+                    <li><a href="{{ url('category/'.$course->category_id.'/'.$course->category->category_slug) }}">{{ $course->category->category_name }}</a></li>
+                    <li><a href="{{ url('subcategory/'.$course->subcategory_id.'/'.$course->subcategory->subcategory_slug) }}">{{ $course->subcategory->subcategory_name }}</a></li>
                 </ul>
                 <div class="section-heading">
                     <h2 class="section__title">{{ $course->course_name }}</h2>
@@ -589,12 +589,16 @@
                                 <p class="preview-price-discount-text pb-35px">
                                     <span class="text-color-3">4 days</span> left at this price!
                                 </p>
-                                <div class="buy-course-btn-box">
-                                    <button type="button" class="btn theme-btn w-100 mb-2"><i
-                                            class="la la-shopping-cart fs-18 mr-1"></i> Add to cart</button>
-                                    <button type="button" class="btn theme-btn w-100 theme-btn-white mb-2"><i
-                                            class="la la-shopping-bag mr-1"></i> Buy this course</button>
-                                </div>
+            <div class="buy-course-btn-box">
+                <button type="submit" class="btn theme-btn w-100 mb-2" onclick="addToCart({{ $course->id }},'{{ $course->course_name }}','{{ $course->course_name_slug }}','{{ $course->instactor_id }}','{{ $course->course_image }}')"  >
+                    <i class="la la-shopping-cart fs-18 mr-1"></i>
+                     Add to cart
+                </button>
+
+
+                <button type="button" class="btn theme-btn w-100 theme-btn-white mb-2"><i
+                        class="la la-shopping-bag mr-1"></i> Buy this course</button>
+            </div>
                                 <p class="fs-14 text-center pb-4">30-Day Money-Back Guarantee</p>
                                 <div class="preview-course-incentives">
                                     <h3 class="card-title fs-18 pb-2">This course includes</h3>

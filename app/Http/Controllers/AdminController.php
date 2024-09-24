@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -83,6 +84,16 @@ class AdminController extends Controller
 
         return redirect('/admin/login');
     } //end method
+
+
+    public function AdminCourseIndex()
+    {
+        $courses = Course::latest()->get();
+        return view('admin.backend.courses.index',compact('courses'));
+    } //end method
+
+
+
 
 
 

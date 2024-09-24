@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\InstuctorController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TeacherApplyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,6 +30,17 @@ Route::middleware('auth')->group(function () {
     // user change password part
     Route::get('/user/change/password', [UserController::class, 'UserChangePassword'])->name('user.password.change');
     Route::post('/user/update/password', [UserController::class, 'UserUpdatePassword'])->name('user.update.password');
+
+
+    Route::controller(WishlistController::class)->group(function(){
+
+        Route::get('/user/wishlist/index', 'UserWishListIndex')->name('user.wishlist.index');
+        Route::get('/get-wishlist-course', 'GetWishListCourse');
+        Route::get('/wishlist-remove/{id}', 'RemoveWishList');
+
+    });
+
+
 });
 
 // New Teacher apply part
@@ -68,8 +81,11 @@ Route::controller(CategoryController::class)->group(function(){
     Route::post('/update/category/{id}','UpdateCategory')->name('update.category');
     Route::get('/destroy/category/{id}','DestroyCategory')->name('destroy.category');
 });
+
+
 // instuctor part
 Route::controller(TeacherApplyController::class)->group(function(){
+
     Route::get('/apply/instuctor/index','IndexApply')->name('instuctor.index');
     Route::get('/add/instuctor/{id}','AddAsInstuctor')->name('add.instuctor');
     Route::post('/store/instuctor','StoreInstuctor')->name('store.instuctor');
@@ -78,7 +94,18 @@ Route::controller(TeacherApplyController::class)->group(function(){
     Route::get('/inactive/instuctor/{id}','InactiveInstuctor')->name('inactive.instuctor');
     Route::get('/active/instuctor/{id}','ActiveInstuctor')->name('active.instuctor');
     // Route::get('/destroy/category/{id}','DestroyCategory')->name('destroy.category');
-});
+
+});// END instuctor part
+
+// admin all course part
+Route::controller(AdminController::class)->group(function(){
+
+    Route::get('/admin/course/index','AdminCourseIndex')->name('admin.course.index');
+
+}); // End admin all course part
+
+
+
 // sub category part
 Route::resource('/subcategory', SubCategoryController::class);
 });// end admin middleware part
@@ -100,6 +127,16 @@ Route::post('/instuctor/profile/store', [InstuctorController::class, 'InstuctorP
 Route::get('/instuctor/change/password', [InstuctorController::class, 'InstuctorChangePassword'])->name('instuctor.change.password');
 
 Route::post('/instuctor/password/update', [InstuctorController::class, 'InstuctorPasswordUpdate'])->name('instuctor.password.update');
+
+Route::get('/about/instuctor/create/{id}', [InstuctorController::class, 'AboutInstuctorCreate'])->name('about.instuctor.create');
+
+Route::post('/about/instuctor/store', [InstuctorController::class, 'InstuctorAboutStore'])->name('about.instuctor.store');
+
+Route::get('/about/instuctor/edit/{id}', [InstuctorController::class, 'AboutInstuctorEdit'])->name('about.instuctor.edit');
+
+Route::post('/about/instuctor/update/{id}', [InstuctorController::class, 'InstuctorAboutUpdate'])->name('about.instuctor.update');
+
+Route::get('/about/instuctor/delete/{id}', [InstuctorController::class, 'AboutInstuctorDelete'])->name('about.instuctor.delete');
 
 // Course part
 Route::controller(CourseController::class)->group(function(){
@@ -142,6 +179,26 @@ Route::get('/course/details/{id}/{slug}',[CourseController::class, 'CourseDetail
 ///   /////// Categories wise coure/ / / / / / / / / / / / / / / /
 Route::get('/category/{id}/{slug}',[FrontendController::class, 'CategorywiseCourse']);
 Route::get('/subcategory/{id}/{slug}',[FrontendController::class, 'SubcategorywiseCourse']);
+Route::get('/instuctor/details/{id}',[FrontendController::class, 'InstuctorDetails'])->name('instuctor.details');
+
+// route for wishlist
+Route::post('/add-to-wishlist/{course_id}',[WishlistController::class, 'AddToWishList']);
+
+// route for add to cart
+Route::post('/cart/data/store/{courseId}',[CartController::class, 'AddToCart']);
+Route::get('/cart/data',[CartController::class, 'CartData']);
+// mini cart part
+Route::get('/course/mini/cart',[CartController::class, 'CourseMiniCart']);
+Route::get('/mini/cart/remove/{rowId}',[CartController::class, 'MiniCartRemove']);
+////////////////////
+// Cart All Route //
+////////////////////
+Route::controller(CartController::class)->group(function(){
+    Route::get('/go/to/cart','GoToCart')->name('go.to.cart');
+    Route::get('/get-cart-data','GetCartData');
+    Route::get('/cart/remove/{rowId}','CartRemove');
+});
+
 
 
 

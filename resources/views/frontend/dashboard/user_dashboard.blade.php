@@ -121,6 +121,7 @@
     <script src="{{ asset('frontend') }}/js/animated-skills.js"></script>
     <script src="{{ asset('frontend') }}/js/jquery.MultiFile.min.js"></script>
     <script src="{{ asset('frontend') }}/js/main.js"></script>
+    @include('frontend\body\script')
 </body>
 
 </html>
