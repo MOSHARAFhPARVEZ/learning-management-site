@@ -32,8 +32,6 @@
                         <th scope="col">Course Title</th>
                         <th scope="col">Course Name Slug</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Category Name</th>
-                        <th scope="col">Sub Category Name</th>
                         <th scope="col">Label</th>
                         <th scope="col">Duration</th>
                         <th scope="col">Resources</th>
@@ -51,8 +49,6 @@
                         <td>{{ $courses->course_title }}</td>
                         <td>{{ $courses->course_name_slug }}</td>
                         <td>{{ $courses->description }}</td>
-                        <td>{{ $courses->category->category_name }}</td>
-                        <td>{{ $courses->subcategory->subcategory_name }}</td>
                         <td>{{ $courses->label }}</td>
                         <td>{{ $courses->duration }}</td>
                         <td>{{ $courses->resources }}</td>

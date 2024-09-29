@@ -32,9 +32,12 @@
                     <thead>
                         <tr>
                             <th>Sl</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Stutas</th>
+                            <th>Course Image</th>
+                            <th>Course Name</th>
+                            <th>Category Name</th>
+                            <th>Selling Price</th>
+                            <th>Discount Price</th>
+                            <th>Details</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -42,43 +45,43 @@
                         @foreach ($courses as $course)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td><img src="{{ asset('uploads/course/course_image') }}/{{  $course->course_image }}" alt=""
+                                    style="width: 40px; height:40px"></td>
                             <td>{{ $course->course_name }}</td>
-                            <td>{{ $course->course_name_slug }}</td>
+                            <td>{{ $course->category->category_name }}</td>
+                            <td>{{ $course->selling_price }}</td>
+                            <td>{{ $course->discount_price }}</td>
                             <td>
-                                @if ($course->status == 1)
-                                <span class="btn btn-success">Active</span>
-                                @else
-                                <span class="btn btn-danger">InActive</span>
-                                @endif
+                                <a href="{{ route('admin.course.details',$course->id) }}" class="btn btn-info">
+                                        <i class="lni lni-eye"></i>
+                                </a>
                             </td>
                             <td>
-                                {{-- @if ($course->status == 1) --}}
-                                {{-- <div class="col">
-                                    <a href="{{ route('inactive.instuctor',$course->id) }}"
-                                        class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded">
-                                        <div class="col">
-                                            <button type="button" class="btn btn-outline-primary px-2">
-                                                <i class="lni lni-checkmark"></i>
-                                                <span class="ms-2">Active</span>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div> --}}
-                                {{-- @else --}}
-
-                                {{-- <div class="col">
-                                    <a href="{{ route('active.instuctor',$course->id) }}"
-                                        class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded">
-                                        <div class="col">
-                                            <button type="button" class="btn btn-outline-danger px-2">
-                                                <i class="lni lni-close"></i>
-                                                <span class="ms-2">InActive</span>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div> --}}
-
-                                {{-- @endif --}}
+                                @if ($course->status == 1)
+                                    <div class="col">
+                                        <a href="{{ route('admin.inactive.course',$course->id) }}"
+                                            class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded">
+                                            <div class="col">
+                                                <button type="button" class="btn btn-outline-success px-2">
+                                                    <i class="lni lni-checkmark"></i>
+                                                    <span class="ms-2">Active</span>
+                                                </button>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @else
+                                    <div class="col">
+                                        <a href="{{ route('admin.active.course',$course->id) }}"
+                                            class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded">
+                                            <div class="col">
+                                                <button type="button" class="btn btn-outline-danger px-2">
+                                                    <i class="lni lni-close"></i>
+                                                    <span class="ms-2">InActive</span>
+                                                </button>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
@@ -86,9 +89,12 @@
                     <tfoot>
                         <tr>
                             <th>Sl</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Stutas</th>
+                            <th>Course Image</th>
+                            <th>Course Name</th>
+                            <th>Category Name</th>
+                            <th>Selling Price</th>
+                            <th>Discount Price</th>
+                            <th>Details</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>

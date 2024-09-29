@@ -596,8 +596,8 @@
                 </button>
 
 
-                <button type="button" class="btn theme-btn w-100 theme-btn-white mb-2"><i
-                        class="la la-shopping-bag mr-1"></i> Buy this course</button>
+                <a href="{{ route('checkout') }}" type="submit" class="btn theme-btn w-100 theme-btn-white mb-2"><i
+                        class="la la-shopping-bag mr-1"></i> Buy this course</a>
             </div>
                                 <p class="fs-14 text-center pb-4">30-Day Money-Back Guarantee</p>
                                 <div class="preview-course-incentives">

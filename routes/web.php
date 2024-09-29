@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\InstuctorController;
@@ -101,6 +102,23 @@ Route::controller(TeacherApplyController::class)->group(function(){
 Route::controller(AdminController::class)->group(function(){
 
     Route::get('/admin/course/index','AdminCourseIndex')->name('admin.course.index');
+    Route::get('/admin/course/details/{id}','AdminCourseDetails')->name('admin.course.details');
+    Route::get('/admin/inactive/course/{id}','AdminInactiveCourse')->name('admin.inactive.course');
+    Route::get('/admin/active/course/{id}','AdminActiveCourse')->name('admin.active.course');
+
+}); // End admin all course part
+
+// admin all course part
+Route::controller(CouponController::class)->group(function(){
+
+    Route::get('/admin/coupon/index','AdminCouponIndex')->name('admin.coupon.index');
+    Route::get('/admin/coupon/create','AdminCouponCreate')->name('admin.coupon.create');
+    Route::post('/admin/coupon/store','AdminCouponStore')->name('admin.coupon.store');
+    Route::get('/admin/coupon/edit/{id}','AdminCouponEdit')->name('admin.coupon.edit');
+    Route::post('/admin/coupon/update/{id}','AdminCouponUpdate')->name('admin.coupon.update');
+    Route::get('/admin/coupon/destroy/{id}','AdminCouponDestroy')->name('admin.coupon.destroy');
+
+
 
 }); // End admin all course part
 
@@ -197,6 +215,19 @@ Route::controller(CartController::class)->group(function(){
     Route::get('/go/to/cart','GoToCart')->name('go.to.cart');
     Route::get('/get-cart-data','GetCartData');
     Route::get('/cart/remove/{rowId}','CartRemove');
+}); //end method
+///////////////
+// coupon part //////////////////////////////////////////////////////
+Route::controller(CartController::class)->group(function(){
+    Route::post('/coupon-apply','CouponApply');
+    Route::get('/coupon-calculation','CouponCalculation');
+    Route::get('/coupon-remove','CouponRemove');
+});
+///////////////
+// checkout part //////////////////////////////////////////////////////
+Route::controller(CartController::class)->group(function(){
+   Route::get('/checkout','CheckoutIndex')->name('checkout');
+   Route::post('/order/store','OrderStore')->name('order.store');
 });
 
 

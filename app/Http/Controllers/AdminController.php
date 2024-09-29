@@ -93,12 +93,39 @@ class AdminController extends Controller
     } //end method
 
 
+    public function AdminCourseDetails($id)
+    {
+        $courses = Course::find($id);
+
+        return view('admin.backend.courses.details',compact('courses'));
+    } //end method
 
 
 
+    public function AdminInactiveCourse($id)
+    {
+
+        Course::find($id)->update([
+            'status'=>'0',
+        ]);
+
+        return back()->with('success','You Successfully Inactive This Course');
 
 
+    } //end method
 
+
+    public function AdminActiveCourse($id)
+    {
+
+        Course::find($id)->update([
+            'status'=>'1',
+        ]);
+
+        return back()->with('success','You Successfully Active This Course');
+
+
+    } //end method
 
 
 
