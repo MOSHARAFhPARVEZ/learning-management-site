@@ -8,7 +8,7 @@
                         <img class="rounded-full" src="{{ (!empty($profiledata->photo)) ? url('uploads/user_img/'.$profiledata->photo) : url('uploads/no_image.jpg') }}" alt="Student thumbnail image">
                     </div>
                     <div class="media-body">
-                        <h2 class="section__title fs-30">Howdy, {{ $profiledata->name }}</h2>
+                        <h2 class="section__title fs-30"> {{ $profiledata->name }}</h2>
                     </div><!-- end media-body -->
                 </div><!-- end media -->
             </div><!-- end breadcrumb-content -->

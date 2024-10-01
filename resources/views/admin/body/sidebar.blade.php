@@ -78,6 +78,36 @@
 
 
 				<li>
+					<a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class='bx bx-cart'></i>
+						</div>
+						<div class="menu-title">Manage Settings</div>
+					</a>
+					<ul>
+						<li> <a href="{{ route('admin.setting.smtp') }}"><i class='bx bx-radio-circle'></i>Manage SMTP</a>
+						</li>
+					</ul>
+				</li>
+
+
+				<li>
+					<a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class='bx bx-cart'></i>
+						</div>
+						<div class="menu-title">Manage Order</div>
+					</a>
+					<ul>
+						<li> <a href="{{ route('admin.pending.order') }}"><i class='bx bx-radio-circle'></i>Pending Order</a>
+						</li>
+					</ul>
+					<ul>
+						<li> <a href="{{ route('admin.confirm.order') }}"><i class='bx bx-radio-circle'></i>Confirm Order</a>
+						</li>
+					</ul>
+				</li>
+
+
+				<li>
 					<a class="has-arrow" href="javascript:;">
 						<div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
 						</div>

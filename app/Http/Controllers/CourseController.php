@@ -336,14 +336,6 @@ class CourseController extends Controller
 
     public function AddlectureStore(Request $request , $id){
 
-        // error part
-        $request->validate([
-            'lecture_tittle' => 'required',
-            'url' => 'required',
-            'content' => 'required',
-        ]);
-        // error part
-
         // store part
         CourseLecture::insert([
             'lecture_tittle' => $request->lecture_tittle,

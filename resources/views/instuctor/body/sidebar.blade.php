@@ -31,7 +31,8 @@ $status = $instuctorId->status;
         @if ($status === '1')
 
 
-        <li class="menu-label">Course Management</li>
+        <li class="menu-label">UI Elements</li>
+
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class='bx bx-cart'></i>
@@ -44,8 +45,24 @@ $status = $instuctorId->status;
                 <li> <a href="{{ route('course.create') }}"><i class='bx bx-radio-circle'></i>Create Course</a>
                 </li>
             </ul>
+
         </li>
-        <li class="menu-label">UI Elements</li>
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-cart'></i>
+                </div>
+                <div class="menu-title">Orders</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('instuctor.all.order') }}"><i class='bx bx-radio-circle'></i>ALL Orders</a>
+                </li>
+                {{-- <li> <a href="{{ route('course.create') }}"><i class='bx bx-radio-circle'></i>Create Course</a>
+                </li> --}}
+            </ul>
+
+        </li>
+
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class='bx bx-cart'></i>

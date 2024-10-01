@@ -135,6 +135,41 @@ wishlist();
 {{-- //// End Add To Cart Part //// --}}
 
 
+
+
+{{-- //// Start Add To Cart Part //// --}}
+
+<script type="text/javascript">
+
+    function buyCourse(courseId , courseName, courseNameSlug, instactorId){
+        $.ajax({
+            type: "POST",
+            datatype: 'json',
+            data: {
+                _token: '{{ csrf_token() }}',
+                course_name: courseName,
+                course_name_slug: courseNameSlug,
+                instactor_id: instactorId
+            },
+            url: "/buy/data/store/"+courseId,
+            success: function(data){
+                miniCart();
+
+                 if ($.isEmptyObject(data.error)) {
+
+
+                     // Redirect to the checkout page
+                     window.location.href = '/checkout';
+
+                }
+            }
+        });
+    }
+
+</script>
+{{-- //// End Add To Cart Part //// --}}
+
+
 {{-- //// Start Mini Cart Part //// --}}
 
 <script type="text/javascript">

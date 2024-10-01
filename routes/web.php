@@ -7,6 +7,8 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\InstuctorController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TeacherApplyController;
 use App\Http\Controllers\UserController;
@@ -38,6 +40,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/wishlist/index', 'UserWishListIndex')->name('user.wishlist.index');
         Route::get('/get-wishlist-course', 'GetWishListCourse');
         Route::get('/wishlist-remove/{id}', 'RemoveWishList');
+
+    });
+
+    Route::controller(OrderController::class)->group(function(){
+
+        Route::get('/user/course', 'UserCourse')->name('user.course');
+        Route::get('/user/course/view/{id}', 'UserCourseView')->name('user.course.view');
 
     });
 
@@ -108,7 +117,9 @@ Route::controller(AdminController::class)->group(function(){
 
 }); // End admin all course part
 
-// admin all course part
+
+
+// admin all coupon part
 Route::controller(CouponController::class)->group(function(){
 
     Route::get('/admin/coupon/index','AdminCouponIndex')->name('admin.coupon.index');
@@ -118,21 +129,46 @@ Route::controller(CouponController::class)->group(function(){
     Route::post('/admin/coupon/update/{id}','AdminCouponUpdate')->name('admin.coupon.update');
     Route::get('/admin/coupon/destroy/{id}','AdminCouponDestroy')->name('admin.coupon.destroy');
 
+}); // End admin all coupon part
+
+// admin all SettingController part
+Route::controller(SettingController::class)->group(function(){
+
+    Route::get('/admin/setting/smtp','AdminSettingSmtp')->name('admin.setting.smtp');
+    Route::post('/admin/smtp/update','AdminSmtpUpdate')->name('admin.smtp.update');
+
+}); // End admin all SettingController part
 
 
-}); // End admin all course part
+// admin all OrderController part
+Route::controller(OrderController::class)->group(function(){
+
+    Route::get('/admin/pending/order','AdminPendingOrder')->name('admin.pending.order');
+    Route::get('/admin/confirm/order','AdminConfirmOrder')->name('admin.confirm.order');
+    Route::get('/admin/order/details/{id}','AdminOrderDetails')->name('about.order.details');
+    Route::get('/pending/confirm/{id}','PendingConfirm')->name('pending.confirm');
+    Route::get('/confirm/order/details/{id}','ConfirmOrderDetails')->name('confirm.order.details');
+    Route::get('/cancel/confirm/{id}','CancelConfirm')->name('cancel.confirm');
+
+
+}); // End admin all OrderController part
 
 
 
 // sub category part
 Route::resource('/subcategory', SubCategoryController::class);
-});// end admin middleware part
+
+
+});/////////// end admin middleware part/////////////////////////////
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 
 // instuctor login
 Route::get('/instuctor/login', [InstuctorController::class, 'InstuctorLogin'])->name('instuctor.login');
 
-
+/////////////////////////////////////////////////////////////////
 // instuctor middleware part
+/////////////////////////////////////////////////////////////////
 route::middleware(['auth','roles:instuctor'])->group(function(){
 Route::get('/instuctor/dashboard', [InstuctorController::class, 'InstuctorDashboard'])->name('instuctor.dashboard');
 // logout
@@ -186,8 +222,16 @@ Route::controller(CourseController::class)->group(function(){
     Route::get('/course/lecture/destroy/{id}','CourseLectureDestroy')->name('course.lecture.destroy');
 });
 
+// OrderController part
+Route::controller(OrderController::class)->group(function(){
+    Route::get('/instuctor/all/order','InstuctorAllOrder')->name('instuctor.all.order');
+    Route::get('/instuctor/order/details/{id}','InstuctorOrderDetails')->name('instuctor.order.details');
+    Route::get('/instuctor/order/invoice/{id}','InstuctorOrderInvoice')->name('instuctor.order.invoice');
 
-});// end instuctor middleware part
+});
+
+
+}); // end instuctor middleware part//////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 // ////////Frontend Part start / / /  / / / / / / / / / / / / /
 ////////////////////////////////////////////////////////////////////////
@@ -204,6 +248,7 @@ Route::post('/add-to-wishlist/{course_id}',[WishlistController::class, 'AddToWis
 
 // route for add to cart
 Route::post('/cart/data/store/{courseId}',[CartController::class, 'AddToCart']);
+Route::post('/buy/data/store/{courseId}',[CartController::class, 'BuyCourse']);
 Route::get('/cart/data',[CartController::class, 'CartData']);
 // mini cart part
 Route::get('/course/mini/cart',[CartController::class, 'CourseMiniCart']);

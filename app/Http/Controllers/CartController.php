@@ -291,6 +291,7 @@ class CartController extends Controller
             'email' => $sendmail->email,
             'phone' => $sendmail->phone,
         ];
+
         Mail::to($request->email)->send(new Orderconfirm($data));
 
 
@@ -309,6 +310,59 @@ class CartController extends Controller
 
     } // end method
 
+
+    public function BuyCourse(Request $request, $courseId){
+        $course = Course::find($courseId);
+
+        if (Session::has('coupon')) {
+            Session::forget('coupon');
+        }
+
+        // check if the course is already in the cart
+        $cartItem = Cart::search(function ($cartItem, $rowId) use ($courseId){
+            return $cartItem->id === $courseId;
+        });
+
+        if ($cartItem->isNotEmpty()) {
+            return back()->with('error','This Course Already on Your Cart');
+        }
+
+        if ($course->discount_price == NULL) {
+            Cart::add([
+                'id' => $courseId,
+                'name' => $request->course_name,
+                'qty' => 1,
+                'price' => $course->selling_price,
+                'weight' => 1,
+                'options' =>
+                [
+                    'course_image' => $course->course_image,
+                    'course_name_slug' => $course->course_name_slug,
+                    'instactor_id' => $course->instactor_id,
+                ]
+            ]);
+
+        } else {
+            Cart::add([
+                'id' => $courseId,
+                'name' => $request->course_name,
+                'qty' => 1,
+                'price' => $course->discount_price,
+                'weight' => 1,
+                'options' =>
+                [
+                    'course_image' => $course->course_image,
+                    'course_name_slug' => $course->course_name_slug,
+                    'instactor_id' => $course->instactor_id,
+                ]
+            ]);
+        }
+
+         return response()->json(['success' => 'Successfully Added on Your Cart']); 
+
+
+
+    } //end method
 
 
 

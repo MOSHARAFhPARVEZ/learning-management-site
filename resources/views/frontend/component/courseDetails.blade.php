@@ -199,7 +199,7 @@
                                                 lectures</span>
                                         </button>
                                     </div><!-- end card-header -->
-                                    <div id="collapse{{ $section->id }}" class="collapse show"
+                                    <div id="collapse{{ $section->id }}" class="collapse"
                                         aria-labelledby="heading{{ $section->id }}" data-parent="#accordion">
                                         <div class="card-body">
                                             <ul class="generic-list-item">
@@ -596,8 +596,8 @@
                 </button>
 
 
-                <a href="{{ route('checkout') }}" type="submit" class="btn theme-btn w-100 theme-btn-white mb-2"><i
-                        class="la la-shopping-bag mr-1"></i> Buy this course</a>
+                <button onclick="buyCourse({{ $course->id }},'{{ $course->course_name }}','{{ $course->course_name_slug }}','{{ $course->instactor_id }}','{{ $course->course_image }}')" type="submit" class="btn theme-btn w-100 theme-btn-white mb-2"><i
+                        class="la la-shopping-bag mr-1"></i> Buy this course</button>
             </div>
                                 <p class="fs-14 text-center pb-4">30-Day Money-Back Guarantee</p>
                                 <div class="preview-course-incentives">
