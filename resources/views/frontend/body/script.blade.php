@@ -48,7 +48,7 @@ $('#wishQty').text(response.wishQty);
         <div class="card card-item">
             <div class="card-image">
                 <a href="/course/details/${value.course.id}/${value.course.course_name_slug}" class="d-block">
-                    <img class="card-img-top" src="/${value.course.course_image}" alt="Card image cap">
+                    <img class="card-img-top" src="/${'uploads/course/course_image'}/${value.course.course_image}" alt="Card image cap">
                 </a>
             </div><!-- end card-image -->
             <div class="card-body">
@@ -269,7 +269,7 @@ function miniCartRemove(rowId){
                     <th scope="row">
                         <div class="media media-card">
                             <a href="course-details.html" class="media-img mr-0">
-                                <img src="/${value.options.course_image}" alt="Cart image">
+                                <img src="/${'uploads/course/course_image'}/${value.options.course_image}" alt="Cart image">
                             </a>
                         </div>
                     </th>
@@ -408,6 +408,39 @@ function miniCartRemove(rowId){
 
 </script>
 {{-- //// End Coupon Aplly Part //// --}}
+
+
+{{-- //// Start ins Coupon Aplly Part //// --}}
+
+<script type="text/javascript">
+
+    function applyInsCoupon(){
+        var coupon_name = $('#coupon_name').val();
+        var course_id = $('#course_id').val();
+        var instuctor_id = $('#instuctor_id').val();
+        $.ajax({
+            type: "POST",
+            datatype: 'json',
+            data: {coupon_name:coupon_name,course_id:course_id,instuctor_id:instuctor_id},
+            url: "/inscoupon-apply",
+
+            success:function(data){
+
+                couponCalculation();
+                // if (data.validity == true) {
+                //     $('#couponField').hide();
+                // }
+
+                 if (data.validity == true) {
+                    $('#couponField').hide();
+                }
+            }
+        })
+    }
+
+
+</script>
+{{-- //// End ins Coupon Aplly Part //// --}}
 
 
 

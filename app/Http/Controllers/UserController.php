@@ -61,7 +61,7 @@ class UserController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('success','You Successfully LogOut');
     } //end logut method
 
     public function UserChangePassword(Request $request){

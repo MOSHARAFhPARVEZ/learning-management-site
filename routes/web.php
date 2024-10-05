@@ -8,21 +8,25 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\InstuctorController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\QuansController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TeacherApplyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Middleware\RedirectIfAuthenticated;
 
 // frontend part
 Route::get('/', [UserController::class, 'Index'])->name('index');
 // user dashboard
 Route::get('/dashboard', function () {
     return view('frontend.dashboard.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
-// user middleware part
+})->middleware(['auth','roles:user', 'verified'])->name('dashboard');
+////////////////////////////////////////////////////////////////////////////////////////////
+//user middleware part///////////////// user middleware part///////////user middleware part//
+////////////////////////////////////////////////////////////////////////////////////////////
 Route::middleware('auth')->group(function () {
     // profile part
     Route::get('/user/profile', [UserController::class, 'UserProfile'])->name('user.profile');
@@ -43,15 +47,26 @@ Route::middleware('auth')->group(function () {
 
     });
 
+
+// course view part for user ///////////////////////////////////////////////////////////////
     Route::controller(OrderController::class)->group(function(){
 
         Route::get('/user/course', 'UserCourse')->name('user.course');
         Route::get('/user/course/view/{id}', 'UserCourseView')->name('user.course.view');
+    }); //end method
 
-    });
+
+// Answer and Question Part for User in Course View Page ////////////////////////////////////
+    Route::controller(QuansController::class)->group(function(){
+
+        Route::post('/user/course/question', 'UserCourseQuestion')->name('user.course.question');
+    });//end method
 
 
-});
+});/////////////////////////////////////////////////////////////////////////////////////////
+//end user middleware part /////////////// end user middleware part ////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+
 
 // New Teacher apply part
 Route::get('/teacher/apply', [TeacherApplyController::class, 'TeacherApply'])->name('teacher.apply');
@@ -69,7 +84,7 @@ require __DIR__.'/auth.php';
 // all dashboard route part start
 // All about admin
 // admin login
-Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login')->middleware(RedirectIfAuthenticated::class);
 
 // ===== admin middleware part ========
 route::middleware(['auth','roles:admin'])->group(function(){
@@ -153,6 +168,17 @@ Route::controller(OrderController::class)->group(function(){
 
 }); // End admin all OrderController part
 
+// admin all ReportController part
+Route::controller(ReportController::class)->group(function(){
+
+    Route::get('/admin/report/view','AdminReportView')->name('admin.report.view');
+    Route::post('/admin/search/date','AdminSearchDate')->name('admin.search.date');
+    Route::post('/admin/search/month','AdminSearchMonth')->name('admin.search.month');
+    Route::post('/admin/search/year','AdminSearchYear')->name('admin.search.year');
+
+}); // End admin all ReportController part
+
+
 
 
 // sub category part
@@ -164,7 +190,7 @@ Route::resource('/subcategory', SubCategoryController::class);
 //////////////////////////////////////////////////////////////////
 
 // instuctor login
-Route::get('/instuctor/login', [InstuctorController::class, 'InstuctorLogin'])->name('instuctor.login');
+Route::get('/instuctor/login', [InstuctorController::class, 'InstuctorLogin'])->name('instuctor.login')->middleware(RedirectIfAuthenticated::class);
 
 /////////////////////////////////////////////////////////////////
 // instuctor middleware part
@@ -230,6 +256,28 @@ Route::controller(OrderController::class)->group(function(){
 
 });
 
+// Answer the Question Part for instuctor in Course View Page //////////////////////////////
+    Route::controller(QuansController::class)->group(function(){
+
+        Route::get('/instuctor/all/question', 'InstuctorAllQuestion')->name('instuctor.all.question');
+        Route::get('/instuctor/question/details/{id}', 'InstuctorQuestionDetails')->name('instuctor.question.details');
+        Route::post('/instuctor/question/answer/{id}', 'InstuctorQuestionAnswer')->name('instuctor.question.answer');
+
+    });//end method
+
+
+// instuctor all coupon part
+Route::controller(CouponController::class)->group(function(){
+
+    Route::get('/instuctor/coupon/index','InstuctorCouponIndex')->name('instuctor.coupon.index');
+    Route::get('/instuctor/coupon/create','InstuctorCouponCreate')->name('instuctor.coupon.create');
+    Route::post('/instuctor/coupon/store','InstuctorCouponStore')->name('instuctor.coupon.store');
+    Route::get('/instuctor/coupon/edit/{id}','InstuctorCouponEdit')->name('instuctor.coupon.edit');
+    Route::post('/instuctor/coupon/update/{id}','InstuctorCouponUpdate')->name('instuctor.coupon.update');
+    Route::get('/instuctor/coupon/destroy/{id}','InstuctorCouponDestroy')->name('instuctor.coupon.destroy');
+
+}); // End instuctor all coupon part
+
 
 }); // end instuctor middleware part//////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
@@ -265,6 +313,7 @@ Route::controller(CartController::class)->group(function(){
 // coupon part //////////////////////////////////////////////////////
 Route::controller(CartController::class)->group(function(){
     Route::post('/coupon-apply','CouponApply');
+    Route::post('/inscoupon-apply','InsCouponApply');
     Route::get('/coupon-calculation','CouponCalculation');
     Route::get('/coupon-remove','CouponRemove');
 });
@@ -273,6 +322,7 @@ Route::controller(CartController::class)->group(function(){
 Route::controller(CartController::class)->group(function(){
    Route::get('/checkout','CheckoutIndex')->name('checkout');
    Route::post('/order/store','OrderStore')->name('order.store');
+   Route::post('/stripe/order','StripeOrder')->name('stripe.order');
 });
 
 

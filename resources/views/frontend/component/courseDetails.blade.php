@@ -1,9 +1,7 @@
 @extends('frontend\master')
 @section('content')
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 
 {{-- =========================== --}}
@@ -598,6 +596,18 @@
 
                 <button onclick="buyCourse({{ $course->id }},'{{ $course->course_name }}','{{ $course->course_name_slug }}','{{ $course->instactor_id }}','{{ $course->course_image }}')" type="submit" class="btn theme-btn w-100 theme-btn-white mb-2"><i
                         class="la la-shopping-bag mr-1"></i> Buy this course</button>
+
+
+    <div class="input-group mb-2" id="couponField" >
+        <input type="hidden" name="course_id" id="course_id" value="{{ $course->id }}" >
+        <input type="hidden" name="instuctor_id" id="instuctor_id" value="{{ $course->instactor_id }}" >
+        <input class="form-control form--control pl-3" type="text" id="coupon_name" placeholder="Coupon code">
+        <div class="input-group-append">
+            <a class="btn theme-btn" type="submit" onclick="applyInsCoupon()" >Apply Code</a>
+        </div>
+    </div>
+
+
             </div>
                                 <p class="fs-14 text-center pb-4">30-Day Money-Back Guarantee</p>
                                 <div class="preview-course-incentives">

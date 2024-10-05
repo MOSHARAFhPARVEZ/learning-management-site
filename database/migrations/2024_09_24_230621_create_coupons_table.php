@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('coupon_discount');
             $table->string('coupon_validity');
             $table->string('status')->default(1);
+            $table->string('instuctor_id')->nullable();
+            $table->string('course_id')->nullable();
             $table->timestamps();
         });
     }

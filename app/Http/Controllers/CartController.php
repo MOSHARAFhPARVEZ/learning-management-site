@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Stripe;
 
 class CartController extends Controller
 {
@@ -178,6 +179,41 @@ class CartController extends Controller
 
     } //end method
 
+
+    public function InsCouponApply(Request $request){
+
+        $coupon = Coupon::where('coupon_name',$request->coupon_name)->where('coupon_validity','>=',Carbon::now()->format('Y-m-d'))->first();
+
+        if ($coupon) {
+            if ($coupon->course_id == $request->course_id && $coupon->instuctor_id == $request->instuctor_id) {
+
+                Session::put('coupon',[
+                'coupon_name' => $coupon->coupon_name,
+                'coupon_discount' => $coupon->coupon_discount,
+                'discount_amount' => round(Cart::total() * $coupon->coupon_discount/100),
+                'total_amount' => round(Cart::total() - Cart::total() * $coupon->coupon_discount/100),
+            ]);
+
+            return back()->with('success' , 'Coupon Applied Successfully');
+            // return response()->json(array(
+            //     'validity' => true,
+            //     'success' => 'Coupon Applied Successfully',
+            // ));
+
+            }else {
+                return back()->with('error' , 'This Coupon Is Not Valid For This Course');
+            }
+
+        }else {
+            return back()->with('error' , 'This Coupon Is Invalid');
+        }
+
+
+    }  //end method
+
+
+
+
     public function CouponCalculation(){
 
         if (Session::has('coupon')) {
@@ -234,6 +270,20 @@ class CartController extends Controller
         } else {
             $total_amount = round(Cart::total());
         }
+
+        $data = array();
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['phone'] = $request->phone;
+        $data['address'] = $request->address;
+        $data['course_title'] = $request->course_title;
+        $cartTotal = Cart::total();
+        $carts = Cart::content();
+
+        if ($request->cash_delivery == 'stripe') {
+                return view('frontend.component.payment.stripe',compact('data','cartTotal','carts')) ;
+            }
+            elseif ($request->cash_delivery == 'handcash')  {
 
         // Create A New Payment Record
         $data = new Payment();
@@ -297,18 +347,88 @@ class CartController extends Controller
 
         // End Send Email To Student //
 
-            if ($request->cash_delivery == 'stripe') {
-                return back()->with('error','we work later');
-            }
-            else {
+
 
                 return redirect()->route('index')->with('success','Cash On Delivery Successfuly Submited');
-            }
+            } //end elseif
 
 
 
 
     } // end method
+
+
+
+    public function StripeOrder(Request $request){
+
+        if (Session::has('coupon')) {
+            $total_amount = session()->get('coupon')['total_amount'];
+        } else {
+            $total_amount = round(Cart::total());
+        }
+
+        \Stripe\Stripe::setApiKey('sk_test_51Q5ogHKuaFjUPOvCznH5iYLvxl3ny8eYHqBlv4eMQL71Hnk0exUub8h7CAdIoiGO4DmCduzD29gJBk3sFVTJ2p7c000QPkoMMP');
+
+        $token = $_POST['stripeToken'];
+
+        $charge = \Stripe\Charge::create([
+            'amount' => $total_amount*100,
+            'currency' => 'usd',
+            'description' => 'Lms',
+            'source' => $token,
+            'metadata' => ['order_id' => '3434'],
+        ]);
+
+        $payment_id = Payment::insertGetId([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'cash_delivery' => $request->cash_delivery,
+            'total_amount' => $total_amount,
+            'payment_type' => 'payment_type',
+            'invoice_no' => 'MMH' . mt_rand(10000000 , 99999999),
+            'order_date' => Carbon::now()->format('d F Y'),
+            'order_month' => Carbon::now()->format('F'),
+            'order_year' => Carbon::now()->format('Y'),
+            'status' => 'pending',
+            'created_at' => Carbon::now(),
+        ]);
+
+
+        $carts = Cart::content();
+        foreach ($carts as $cart) {
+            Order::insert([
+                'payment_id' =>$payment_id,
+                'user_id' => Auth::user()->id,
+                'course_id' => $cart->id,
+                'instructor_id' => $cart->options->instactor_id,
+                'course_title' => $cart->name,
+                'price' => $cart->price,
+            ]);
+        } // end foreach
+
+
+        // session forget for cart
+
+        if (Session::has('coupon')) {
+            Session::forget('coupon');
+        } //end if
+
+        Cart::destroy();
+
+
+        return redirect()->route('index')->with('success','Stripe Payment Successfully Done');
+
+
+
+    }// end method
+
+
+
+
+
+
 
 
     public function BuyCourse(Request $request, $courseId){
@@ -358,7 +478,7 @@ class CartController extends Controller
             ]);
         }
 
-         return response()->json(['success' => 'Successfully Added on Your Cart']); 
+         return response()->json(['success' => 'Successfully Added on Your Cart']);
 
 
 

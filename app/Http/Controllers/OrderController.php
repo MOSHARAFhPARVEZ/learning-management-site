@@ -6,6 +6,7 @@ use App\Models\Aboutins;
 use App\Models\CourseSection;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\Quans;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -137,8 +138,9 @@ class OrderController extends Controller
         $courses =  Order::where('course_id',$id)->where('user_id',$user_id )->first();
         $sections = CourseSection::where('course_id',$id)->orderBy('id','asc')->get();
         $ins = $courses->course->instuctor_id;
+        $question = Quans::latest()->get();
 
-        return view('frontend.dashboard.course.cuourseview',compact('courses','sections'));
+        return view('frontend.dashboard.course.cuourseview',compact('courses','sections','question'));
 
     } //end method
 

@@ -178,7 +178,7 @@ class InstuctorController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/instuctor/login');
+        return redirect('/instuctor/login')->with('success','You Successfully LogOut');
     }//end method
 
 

@@ -57,10 +57,31 @@ $status = $instuctorId->status;
             <ul>
                 <li> <a href="{{ route('instuctor.all.order') }}"><i class='bx bx-radio-circle'></i>ALL Orders</a>
                 </li>
-                {{-- <li> <a href="{{ route('course.create') }}"><i class='bx bx-radio-circle'></i>Create Course</a>
-                </li> --}}
             </ul>
+        </li>
 
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-cart'></i>
+                </div>
+                <div class="menu-title">Question & Answer Management</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('instuctor.all.question') }}"><i class='bx bx-radio-circle'></i>ALL Question</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-cart'></i>
+                </div>
+                <div class="menu-title">Coupon Management</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('instuctor.coupon.index') }}"><i class='bx bx-radio-circle'></i>ALL Coupon</a>
+                </li>
+            </ul>
         </li>
 
         <li>
