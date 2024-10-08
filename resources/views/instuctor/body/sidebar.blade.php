@@ -88,6 +88,18 @@ $status = $instuctorId->status;
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class='bx bx-cart'></i>
                 </div>
+                <div class="menu-title">Manage Reviews</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('instuctor.review.index') }}"><i class='bx bx-radio-circle'></i>ALL Reviews</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-cart'></i>
+                </div>
                 <div class="menu-title">eCommerce</div>
             </a>
             <ul>

@@ -124,6 +124,41 @@
 				</li>
 
 
+				<li>
+					<a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class='bx bx-cart'></i>
+						</div>
+						<div class="menu-title">Manage Review</div>
+					</a>
+					<ul>
+						<li> <a href="{{ route('admin.review.view') }}"><i class='bx bx-radio-circle'></i>View Repot</a>
+						</li>
+					</ul>
+					<ul>
+						<li> <a href="{{ route('admin.confirm.order') }}"><i class='bx bx-radio-circle'></i>Confirm Order</a>
+						</li>
+					</ul>
+				</li>
+
+
+
+				<li>
+					<a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class='bx bx-cart'></i>
+						</div>
+						<div class="menu-title">Manage User</div>
+					</a>
+					<ul>
+						<li> <a href="{{ route('admin.user.view') }}"><i class='bx bx-radio-circle'></i>View All User</a>
+						</li>
+					</ul>
+					<ul>
+						<li> <a href="{{ route('admin.instuctor.view') }}"><i class='bx bx-radio-circle'></i>View All Instuctor</a>
+						</li>
+					</ul>
+				</li>
+
+
 
 				<li>
 					<a class="has-arrow" href="javascript:;">

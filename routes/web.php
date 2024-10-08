@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActiveuserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\CartController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\InstuctorController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\QuansController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TeacherApplyController;
@@ -24,6 +26,9 @@ Route::get('/', [UserController::class, 'Index'])->name('index');
 Route::get('/dashboard', function () {
     return view('frontend.dashboard.index');
 })->middleware(['auth','roles:user', 'verified'])->name('dashboard');
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 //user middleware part///////////////// user middleware part///////////user middleware part//
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,6 +49,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/wishlist/index', 'UserWishListIndex')->name('user.wishlist.index');
         Route::get('/get-wishlist-course', 'GetWishListCourse');
         Route::get('/wishlist-remove/{id}', 'RemoveWishList');
+
+    });
+
+    Route::controller(ReviewController::class)->group(function(){
+
+        Route::post('/user/review/store', 'UserReviewStore')->name('user.review.store');
 
     });
 
@@ -180,6 +191,28 @@ Route::controller(ReportController::class)->group(function(){
 
 
 
+// admin all ReviewController part
+Route::controller(ReviewController::class)->group(function(){
+
+    Route::get('/admin/review/view','AdminReviewView')->name('admin.review.view');
+    Route::get('/inactive/review/{id}','InactiveReview')->name('inactive.review');
+    Route::get('/active/review/{id}','ActiveReview')->name('active.review');
+
+}); // End admin all ReviewController part
+
+
+// admin all ReviewController part
+Route::controller(ActiveuserController::class)->group(function(){
+
+    Route::get('/admin/user/view','AdminUserView')->name('admin.user.view');
+    Route::get('/admin/instuctor/view','AdminInstuctorView')->name('admin.instuctor.view');
+
+}); // End admin all ReviewController part
+
+
+
+
+
 
 // sub category part
 Route::resource('/subcategory', SubCategoryController::class);
@@ -277,6 +310,24 @@ Route::controller(CouponController::class)->group(function(){
     Route::get('/instuctor/coupon/destroy/{id}','InstuctorCouponDestroy')->name('instuctor.coupon.destroy');
 
 }); // End instuctor all coupon part
+
+
+// instuctor all ReviewController part
+Route::controller(ReviewController::class)->group(function(){
+
+    Route::get('/instuctor/review/index','InstuctorReviewIndex')->name('instuctor.review.index');
+
+
+}); // End instuctor all ReviewController part
+
+
+
+
+
+
+
+
+
 
 
 }); // end instuctor middleware part//////////////////////////////////////////////
