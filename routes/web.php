@@ -3,6 +3,8 @@
 use App\Http\Controllers\ActiveuserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\BlogcategoryController;
+use App\Http\Controllers\BlogpostController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CourseController;
@@ -210,6 +212,36 @@ Route::controller(ActiveuserController::class)->group(function(){
 }); // End admin all ReviewController part
 
 
+// admin all BlogcategoryController part
+Route::controller(BlogcategoryController::class)->group(function(){
+
+    Route::get('/admin/blogcategory/view','AdminBlogCategoryView')->name('admin.blogcategory.view');
+    Route::get('/create/blog/category','CreateBlogCategory')->name('create.blog.category');
+    Route::post('/store/blog/category','BlogCategoryStore')->name('blog.category.store');
+    Route::get('/edit/blog/category/{id}','EditBlogCategory')->name('edit.blog.category');
+    Route::post('/update/blog/category/{id}','UpdateBlogCategory')->name('update.blog.category');
+    Route::get('/destroy/blog/category/{id}','DestroyBlogCategory')->name('destroy.blog.category');
+
+}); // End admin all BlogcategoryController part
+
+
+// admin all BlogcategoryController part
+Route::controller(BlogpostController::class)->group(function(){
+
+    Route::get('/admin/blogpost/index','AdminBlogPostView')->name('admin.blogpost.view');
+    Route::get('/create/blog/post','BlogPostCreate')->name('create.blog.post');
+    Route::post('/store/blog/post','BlogPostStore')->name('blog.post.store');
+    Route::get('/details/blog/post/{id}','BlogPostDetails')->name('details.blog.post');
+    Route::get('/edit/blog/post/{id}','BlogPostEdit')->name('edit.blog.post');
+    Route::post('/update/blog/post/{id}','BlogPostUpdate')->name('blog.post.update');
+    Route::get('/destroy/blog/post/{id}','BlogPostDestroy')->name('destroy.blog.post');
+    Route::get('/blog/details/{id}/{post_slug}','BlogDetails');
+    Route::get('/blog/cat/list/{id}/{category_slug}','BlogCatList');
+    Route::get('/all/blog','AllBlog')->name('all.blog');
+
+}); // End admin all BlogcategoryController part
+
+
 
 
 
@@ -374,6 +406,11 @@ Route::controller(CartController::class)->group(function(){
    Route::get('/checkout','CheckoutIndex')->name('checkout');
    Route::post('/order/store','OrderStore')->name('order.store');
    Route::post('/stripe/order','StripeOrder')->name('stripe.order');
+});
+
+// Notification part
+Route::controller(CartController::class)->group(function(){
+   Route::post('/mark-notification-as-read/{notificationId}','ReadNotification');
 });
 
 

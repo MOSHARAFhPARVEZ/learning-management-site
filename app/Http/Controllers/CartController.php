@@ -7,11 +7,14 @@ use App\Models\Coupon;
 use App\Models\Course;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\User;
+use App\Notifications\OrderComplete;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 use Stripe;
 
@@ -265,6 +268,8 @@ class CartController extends Controller
 
     public function OrderStore(Request $request){
 
+        $user = User::where('role','instuctor')->get();
+
         if (Session::has('coupon')) {
             $total_amount = session()->get('coupon')['total_amount'];
         } else {
@@ -343,14 +348,18 @@ class CartController extends Controller
         ];
 
         Mail::to($request->email)->send(new Orderconfirm($data));
-
-
         // End Send Email To Student //
 
+        // start notification part
+        Notification::send($user, new OrderComplete($request->name));
+        // start notification part
 
 
-                return redirect()->route('index')->with('success','Cash On Delivery Successfuly Submited');
-            } //end elseif
+
+
+
+            return redirect()->route('index')->with('success','Cash On Delivery Successfuly Submited');
+        } //end elseif
 
 
 
@@ -483,6 +492,24 @@ class CartController extends Controller
 
 
     } //end method
+
+
+    public function ReadNotification(Request $request,$notificationId){
+
+        $user = Auth::user();
+        $notification = $user->notifications()->where('id',$notificationId)->first();
+        if ($notification) {
+            $notification->markAsRead();
+        }
+        return response()->json(['count' => $user->unreadNotifications()->count()]);
+
+
+    } //end method
+
+
+
+
+
 
 
 
