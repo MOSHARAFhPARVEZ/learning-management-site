@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\QuansController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TeacherApplyController;
@@ -212,6 +213,43 @@ Route::controller(ActiveuserController::class)->group(function(){
 }); // End admin all ReviewController part
 
 
+
+// admin all BlogcategoryController part
+Route::controller(SettingController::class)->group(function(){
+
+    Route::get('/admin/site/settings','AdminSiteSettings')->name('admin.site.settings');
+    Route::post('/admin/site/update','AdminSiteUpdate')->name('admin.site.update');
+
+}); // End admin all BlogcategoryController part
+
+
+// admin all RoleController part
+Route::controller(RoleController::class)->group(function(){
+
+    Route::get('/all/permission','AllPermission')->name('all.permission');
+    Route::get('/create/permission','CreatePermission')->name('create.permission');
+    Route::post('/store/permission','StorePermission')->name('store.permission');
+    Route::get('/edit/permission/{id}','EditPermission')->name('edit.permission');
+    Route::post('/update/permission/{id}','UpdatePermission')->name('update.permission');
+    Route::get('/destroy/permission/{id}','DestroyPermission')->name('destroy.permission');
+
+}); // End admin all RoleController part
+
+
+
+
+
+
+// sub category part
+Route::resource('/subcategory', SubCategoryController::class);
+
+
+});/////////// end admin middleware part/////////////////////////////
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+
+
 // admin all BlogcategoryController part
 Route::controller(BlogcategoryController::class)->group(function(){
 
@@ -241,18 +279,6 @@ Route::controller(BlogpostController::class)->group(function(){
 
 }); // End admin all BlogcategoryController part
 
-
-
-
-
-
-// sub category part
-Route::resource('/subcategory', SubCategoryController::class);
-
-
-});/////////// end admin middleware part/////////////////////////////
-//////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
 
 // instuctor login
 Route::get('/instuctor/login', [InstuctorController::class, 'InstuctorLogin'])->name('instuctor.login')->middleware(RedirectIfAuthenticated::class);

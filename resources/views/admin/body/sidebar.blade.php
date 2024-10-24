@@ -173,7 +173,6 @@
 				</li>
 
 
-
 				<li>
 					<a class="has-arrow" href="javascript:;">
 						<div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
@@ -184,6 +183,32 @@
 						<li> <a href="{{ route('admin.blogpost.view') }}"><i class='bx bx-radio-circle'></i>View Blog Post</a>
 						</li>
 						<li> <a href="{{ route('create.blog.post') }}"><i class='bx bx-radio-circle'></i>Add Blog Post</a>
+						</li>
+					</ul>
+				</li>
+
+
+				<li>
+					<a class="has-arrow" href="javascript:;">
+						<div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+						</div>
+						<div class="menu-title">Settings</div>
+					</a>
+					<ul>
+						<li> <a href="{{ route('admin.site.settings') }}"><i class='bx bx-radio-circle'></i>Site Settings</a>
+						</li>
+					</ul>
+				</li>
+
+
+				<li>
+					<a class="has-arrow" href="javascript:;">
+						<div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+						</div>
+						<div class="menu-title">Role & Permission</div>
+					</a>
+					<ul>
+						<li> <a href="{{ route('all.permission') }}"><i class='bx bx-radio-circle'></i>All Permission</a>
 						</li>
 					</ul>
 				</li>
