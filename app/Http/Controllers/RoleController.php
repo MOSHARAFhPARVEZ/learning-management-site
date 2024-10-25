@@ -6,6 +6,10 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Exports\PermissionExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\PermissionImport;
+
 
 class RoleController extends Controller
 {
@@ -77,6 +81,29 @@ class RoleController extends Controller
 
         Permission::find($id)->delete();
         return back()->with('success','Successfully Deleted');
+
+    } // end method
+
+
+    public function ImportPermission(){
+
+        return view('admin.backend.pages.permission.importfile');
+
+    } // end method
+
+
+    public function ExportPermission(){
+
+        return Excel::download(new PermissionExport, 'permission.xlsx');
+
+    } // end method
+
+
+    public function ImportPermissionStore(Request $request){
+
+        Excel::import(new PermissionImport, $request->file('importxlsx') );
+
+        return redirect()->route('all.permission')->with('success','Successfully Imported');
 
     } // end method
 

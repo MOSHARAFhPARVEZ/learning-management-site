@@ -233,6 +233,11 @@ Route::controller(RoleController::class)->group(function(){
     Route::post('/update/permission/{id}','UpdatePermission')->name('update.permission');
     Route::get('/destroy/permission/{id}','DestroyPermission')->name('destroy.permission');
 
+
+    // Import and Export Excel File in Permission Page
+    Route::get('/import/permission','ImportPermission')->name('import.permission');
+    Route::get('/export/permission','ExportPermission')->name('export.permission');
+    Route::post('/import/permission/store','ImportPermissionStore')->name('import.permission.store');
 }); // End admin all RoleController part
 
 
