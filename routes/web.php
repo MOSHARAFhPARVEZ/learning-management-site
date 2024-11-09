@@ -223,7 +223,7 @@ Route::controller(SettingController::class)->group(function(){
 }); // End admin all BlogcategoryController part
 
 
-// admin all RoleController part
+// admin all RoleController part---[Permission Part]----//
 Route::controller(RoleController::class)->group(function(){
 
     Route::get('/all/permission','AllPermission')->name('all.permission');
@@ -233,7 +233,6 @@ Route::controller(RoleController::class)->group(function(){
     Route::post('/update/permission/{id}','UpdatePermission')->name('update.permission');
     Route::get('/destroy/permission/{id}','DestroyPermission')->name('destroy.permission');
 
-
     // Import and Export Excel File in Permission Page
     Route::get('/import/permission','ImportPermission')->name('import.permission');
     Route::get('/export/permission','ExportPermission')->name('export.permission');
@@ -241,12 +240,53 @@ Route::controller(RoleController::class)->group(function(){
 }); // End admin all RoleController part
 
 
+// admin all Role  part---[Role Part]----//
+Route::controller(RoleController::class)->group(function(){
+
+    Route::get('/all/role','AllRole')->name('all.role');
+    Route::get('/create/role','CreateRole')->name('create.role');
+    Route::post('/store/role','StoreRole')->name('store.role');
+    Route::get('/edit/role/{id}','EditRole')->name('edit.role');
+    Route::post('/update/role/{id}','UpdateRole')->name('update.role');
+    Route::get('/destroy/role/{id}','DestroyRole')->name('destroy.role');
+
+    // Import and Export Excel File in Role Page
+    Route::get('/import/role','ImportRole')->name('import.role');
+    Route::get('/export/role','ExportRole')->name('export.role');
+    Route::post('/import/role/store','ImportRoleStore')->name('import.role.store');
+
+
+    // Role add in Permission
+    Route::get('/role/add/permission','RoleAddPermission')->name('role.add.permission');
+    Route::post('/store/role/add/permission','StoreRoleAddPermission')->name('store.permission.add.role');
+    Route::get('/index/role/has/permission','IndexRoleHasPermission')->name('index.role.has.permission');
+    Route::get('/admin/edit/role/{id}','AdminEditRole')->name('admin.edit.role');
+    Route::post('/update/permission/add/role/{id}','UpdateRolePermission')->name('update.permission.add.role');
+    Route::get('/admin/destroy/role/{id}','AdminDestroyRole')->name('admin.destroy.role');
+}); // End admin all RoleController part
+
+
+
+// [---> Admin <--] all AdminController part
+Route::controller(AdminController::class)->group(function(){
+
+    Route::get('/all/admin','AllAdmin')->name('all.admin');
+    Route::get('/create/admin','CreateAdmin')->name('create.admin');
+    Route::post('/store/admin','AdminStore')->name('store.admin');
+    Route::get('/edit/admin/{id}','AdminEdit')->name('edit.admin');
+    Route::post('/update/admin/{id}','AdminUpdate')->name('update.admin');
+    Route::get('/destroy/admin/{id}','AdminDestroy')->name('destroy.admin');
+
+
+}); // End admin all BlogcategoryController part
+
+
 
 
 
 
 // sub category part
-Route::resource('/subcategory', SubCategoryController::class);
+Route::resource('/subcategory', SubCategoryController::class)->middleware('permission:subcategory.all');
 
 
 });/////////// end admin middleware part/////////////////////////////

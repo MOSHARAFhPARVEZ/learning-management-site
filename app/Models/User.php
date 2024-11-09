@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -20,6 +22,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $guarded = [];
+    protected $guard_name = 'web';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,10 +44,44 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+
+
     // User Active Now
     public function UserOnline(){
         return Cache::has('user-in-online' . $this->id );
-    }
+    } // end method
+
+    public static function permissionGroup(){
+        $permissiongroups = DB::table('permissions')->select('group_name')->groupBy('group_name')->get();
+        return $permissiongroups;
+    } // end method
+
+    public static function permissionByGroup($group_name){
+
+        $permissions = DB::table('permissions')
+                            ->select('name','id')
+                            ->where('group_name',$group_name)
+                            ->get();
+
+                            return $permissions;
+
+    } // end method
+
+
+    public static function roleHasPermission($role,$permissions){
+
+        $hasPermission = true;
+        foreach ($permissions as $permission) {
+            if (!$role->hasPermissionTo($permission->name)) {
+                $hasPermission = false;
+            }
+            return $hasPermission;
+        }
+
+
+    } // end method
+
+
 
 
 }

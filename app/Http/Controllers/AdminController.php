@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -126,6 +128,114 @@ class AdminController extends Controller
 
 
     } //end method
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    ///////////---> All  ADMIN <---//////////---> All ADMIN <---////////////////
+    ////////////////////////////////////////////////////////////////////////////
+
+
+    public function AllAdmin(){
+
+        $allAdmin = User::where('role','admin')->get();
+        return view('admin.backend.admin.index',compact('allAdmin'));
+
+    } // end method
+
+
+    public function CreateAdmin(){
+
+        $roles = Role::all();
+        return view('admin.backend.admin.create',compact('roles'));
+
+    } // end method
+
+
+    public function AdminStore(Request $request){
+
+        // error part
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+        ]);
+        // error part
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->password = Hash::make($request->password);
+        $user->role = 'admin';
+        $user->status = '1';
+        $user->created_at = Carbon::now();
+        $user->save();
+
+        $role = Role::find($request->role);
+
+        if ($role) {
+            $user->assignRole($role);
+        }
+
+        return redirect()->route('all.admin')->with('success','Successfully Added');
+
+    } // end method
+
+
+    public function AdminEdit($id){
+
+        $user = User::find($id);
+        $roles = Role::all();
+
+        return view('admin.backend.admin.edit',compact('user','roles'));
+
+    } // end method
+
+
+    public function AdminUpdate(Request $request , $id){
+
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->role = 'admin';
+        $user->status = '1';
+        $user->updated_at = Carbon::now();
+        $user->save();
+
+        $role = Role::find($request->role);
+        $user->roles()->detach();
+
+        if ($role) {
+            $user->assignRole($role);
+        }
+
+        return redirect()->route('all.admin')->with('success','Successfully Added');
+
+    } // end method
+
+
+    public function AdminDestroy($id){
+
+        $user = User::find($id);
+        if (!is_null($user)) {
+            $user->delete();
+        }
+
+        return redirect()->route('all.admin')->with('success','Successfully Deleted');
+
+    } // end method
+
+
+
 
 
 }

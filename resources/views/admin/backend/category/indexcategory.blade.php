@@ -16,9 +16,11 @@
 						</nav>
 					</div>
                     <div class="ms-auto">
+                        @if (Auth::user()->can('category.add'))
 						<div class="btn-group">
 							<a href="{{ route('create.category') }}" class="btn btn-primary px-5">Add Category </a>
 						</div>
+                        @endif
 					</div>
 				</div>
 				<!--end breadcrumb-->
@@ -44,9 +46,11 @@
 										<td>{{ $category->category_name }}</td>
 										<td>{{ $category->category_slug }}</td>
 										<td>
-                                            <a href="{{ route('edit.category',$category->id) }}" class="btn btn-warning">
-                                                Edit
-                                            </a>
+                                            @if (Auth::user()->can('category.edit'))
+                                                <a href="{{ route('edit.category',$category->id) }}" class="btn btn-warning">
+                                                    Edit
+                                                </a>
+                                            @endif
                                             <a href="{{ route('destroy.category',$category->id) }}" class="btn btn-danger" id="delete">
                                                 Delete
                                             </a>

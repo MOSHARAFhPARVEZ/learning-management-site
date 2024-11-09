@@ -23,6 +23,9 @@
 
 
 				<li class="menu-label">UI Elements</li>
+
+                @if (Auth::user()->can('category.menu'))
+
 				<li>
 					<a href="javascript:;" class="has-arrow">
 						<div class="parent-icon"><i class='bx bx-cart'></i>
@@ -30,12 +33,23 @@
 						<div class="menu-title">Category</div>
 					</a>
 					<ul>
+                        @if (Auth::user()->can('category.all'))
+
 						<li> <a href="{{ route('index.category') }}"><i class='bx bx-radio-circle'></i>All Category</a>
 						</li>
+
+                        @endif
+
+                        @if (Auth::user()->can('subcategory.all'))
+
 						<li> <a href="{{ route('subcategory.index') }}"><i class='bx bx-radio-circle'></i>All Sub Category</a>
 						</li>
+
+                        @endif
 					</ul>
 				</li>
+
+                @endif
 				<li>
 					<a href="javascript:;" class="has-arrow">
 						<div class="parent-icon"><i class='bx bx-cart'></i>
@@ -209,6 +223,25 @@
 					</a>
 					<ul>
 						<li> <a href="{{ route('all.permission') }}"><i class='bx bx-radio-circle'></i>All Permission</a>
+						</li>
+						<li> <a href="{{ route('all.role') }}"><i class='bx bx-radio-circle'></i>All Role</a>
+						</li>
+						<li> <a href="{{ route('role.add.permission') }}"><i class='bx bx-radio-circle'></i>Add Role In Permission</a>
+						</li>
+						<li> <a href="{{ route('index.role.has.permission') }}"><i class='bx bx-radio-circle'></i>view Role In Permission</a>
+						</li>
+					</ul>
+				</li>
+
+
+				<li>
+					<a class="has-arrow" href="javascript:;">
+						<div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+						</div>
+						<div class="menu-title">Manage Admin</div>
+					</a>
+					<ul>
+						<li> <a href="{{ route('all.admin') }}"><i class='bx bx-radio-circle'></i>All Admin</a>
 						</li>
 					</ul>
 				</li>

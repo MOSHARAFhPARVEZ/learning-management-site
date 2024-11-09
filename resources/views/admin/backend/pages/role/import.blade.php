@@ -12,13 +12,13 @@
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}"><i
                                 class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Import Permission</li>
+                    <li class="breadcrumb-item active" aria-current="page">Import Role</li>
                 </ol>
             </nav>
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{ route('export.permission') }}" class="btn btn-primary px-5">Download Xlsx File</a>
+                <a href="{{ route('export.role') }}" class="btn btn-primary px-5">Download Xlsx File</a>
             </div>
         </div>
     </div>
@@ -26,14 +26,14 @@
     <hr />
     <div class="card">
         <div class="card-body p-4">
-            <h5 class="mb-4">Import Permission</h5>
+            <h5 class="mb-4">Import Role</h5>
 
-            <form action="{{ route('import.permission.store') }}" method="POST" class="row g-3" enctype="multipart/form-data" >
+            <form action="{{ route('import.role.store') }}" method="POST" class="row g-3" enctype="multipart/form-data" >
                 @csrf
 
                 <div class="col-md-6">
                     <label for="input1" class="form-label">Import Xlsx File</label>
-                    <input type="file" class="form-control" name="importpermission" id="input1">
+                    <input type="file" class="form-control" name="importxlsx" id="input1">
                 </div>
 
 
