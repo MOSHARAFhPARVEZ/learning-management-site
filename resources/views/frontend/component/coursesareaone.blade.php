@@ -369,7 +369,6 @@
 
                     @foreach ($goals as $goal)
 
-
                     <li>
                         <i class="la la-check mr-1 text-black">
 

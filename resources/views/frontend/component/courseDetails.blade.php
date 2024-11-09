@@ -450,7 +450,7 @@
         </div>
         <div class="media-body">
             <div class="d-flex flex-wrap align-items-center justify-content-between pb-1">
-                <h5>Kavi arasan</h5>
+                <h5>{{ $review->user->name }}</h5>
                 <div class="review-stars">
                     @if ($review->ratings ==NULL)
 
